@@ -1,11 +1,13 @@
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import React, { useState } from 'react';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { auth } from '../../FaireBase/FairBase';
+import { Link } from 'react-router-dom';
 const SignIn = () => {
   const [sucsses, SetSucsses] = useState(false);
   const [errorMesage, setErrorMesage] = useState('')
   const [show, setShow] = useState(false)
+  
   const handleFrom = e => {
     e.preventDefault();
     const email = e.target.email.value;
@@ -33,12 +35,19 @@ const SignIn = () => {
       .then(result => {
         console.log(result)
         SetSucsses(true)
+        sendEmailVerification(auth.currentUser)
+        .then(()=>{
+          console.log('email varification done')
+        })
       })
       .catch(error => {
         console.log(error.message)
         setErrorMesage(error.message)
       })
+
+      
   }
+  
   return (
     <div className='container mx-auto'>
       <h1 className='text-3xl text-black'>SignIn</h1>
@@ -81,6 +90,9 @@ const SignIn = () => {
         sucsses && <div>
           <h3 className='text-2xl text-center text-green-600'>SignIn is Sucssesfully</h3>
         </div>
+      }
+      {
+        <p className=' text-center mr-18'>alredy have a account? plese <Link to='/register'>SignIn</Link></p>
       }
     </div>
 

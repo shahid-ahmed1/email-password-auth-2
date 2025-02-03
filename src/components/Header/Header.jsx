@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 const Header = () => {
     const links=<>
     <li><NavLink to='/'>Home</NavLink></li>
-    <li><NavLink to='signin'>Login</NavLink></li>
-    <li><NavLink to='register'>Register</NavLink></li>
+    <li><NavLink to='signin'>Sign In</NavLink></li>
+    <li><NavLink to='register'>Login</NavLink></li>
         
     
     </>
